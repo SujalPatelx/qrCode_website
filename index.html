@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR KUT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/af1eacfefd.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main_res">
+        <h1 class="res_txt">It's Not An Responsive Project Plz Check This Project In Your Desktop..</h1>
+        <p class="res_footer">Created With💖By
+            @sujalPatel</p>
+    </div>
+    <div class="main">
+        <nav>
+            <div class="navlog">
+                <img class="logo" src="QR_Code.png" alt="LOGo">
+                <p class="para">Scan Mee</p>
+            </div>
+
+            <div class="navcenter">
+                <p>Qr Generator</p>
+            </div>
+
+            <div class="endicon">
+                <img src="qrcode-icon.png" alt="Error">
+            </div>
+        </nav>
+
+        <div class="main_header_container">
+            <div class="home_main_1">
+                <div class="text_left">
+                    <h1>
+                        Create Your
+                        <br>
+                        Custom Qr Code
+                        <br>
+                        <span>Now For Absolutely</span>
+                        <span class="free_span">Free.</span>
+                    </h1>
+                    <p>Easily generate, manage and statistically track your QR codes.</p>
+                </div>
+            </div>
+            <div class="home_main_2">
+                <div class="card_right">
+                    <p>Enter Your Text Or URL...</p>
+                    <input class="ur_input" type="text" placeholder="Text or Url">
+                    <img src="scanning-qr-code.png" class="qr_main" alt="No QR code Here!!">
+
+
+                    <button class="pointer" onclick="mainqr()">Get QR</button>
+
+                    <div class="term_con_qr">
+                        <span>Read All The</span>
+                        <span>Term's And Conditions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let qr = document.querySelector(".qr_main")
+        let sr_input = document.querySelector(".ur_input")
+        let downld = document.querySelector(".download_btn")
+
+        function mainqr() {
+            let aabb = sr_input.value
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${aabb}`;
+            console.log("Hellow world")
+        }
+    </script>
+
+</body>
+
+</html>

@@ -4,33 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR KUT</title>
+    <title>QR KUT - Generate Custom QR Codes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/af1eacfefd.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="qrcode-icon.png" type="image/png">
+    <meta name="description"
+        content="Create your custom QR code for free. Generate, download, and share QR codes for URLs, text, and more.">
 </head>
 
 <body>
-    <div class="main_res">
-        <h1 class="res_txt">It's Not An Responsive Project Plz Check This Project In Your Desktop..</h1>
-        <p class="res_footer">Created With💖By
-            @sujalPatel</p>
-    </div>
     <div class="main">
         <nav>
             <div class="navlog">
-                <img class="logo" src="QR_Code.png" alt="LOGo">
+                <img class="logo" src="QR_Code.png" alt="QR KUT Logo">
                 <p class="para">Scan Mee</p>
             </div>
 
             <div class="navcenter">
-                <p>Qr Generator</p>
+                <p>QR Generator</p>
             </div>
 
             <div class="endicon">
-                <img src="qrcode-icon.png" alt="Error">
+                <img src="qrcode-icon.png" alt="QR Code Icon">
             </div>
         </nav>
 
@@ -40,41 +38,139 @@
                     <h1>
                         Create Your
                         <br>
-                        Custom Qr Code
+                        Custom QR Code
                         <br>
                         <span>Now For Absolutely</span>
                         <span class="free_span">Free.</span>
                     </h1>
-                    <p>Easily generate, manage and statistically track your QR codes.</p>
+                    <p>Easily generate, download, and share your custom QR codes.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> URL encoding</li>
+                        <li><i class="fas fa-check"></i> Text encoding</li>
+                        <li><i class="fas fa-check"></i> Free to use</li>
+                        <li><i class="fas fa-check"></i> Instant generation</li>
+                    </ul>
                 </div>
             </div>
             <div class="home_main_2">
                 <div class="card_right">
                     <p>Enter Your Text Or URL...</p>
-                    <input class="ur_input" type="text" placeholder="Text or Url">
-                    <img src="scanning-qr-code.png" class="qr_main" alt="No QR code Here!!">
+                    <input class="ur_input" type="text" placeholder="Text or URL">
 
+                    <div class="qr-options">
+                        <select id="qr-size">
+                            <option value="150x150">Small</option>
+                            <option value="200x200" selected>Medium</option>
+                            <option value="300x300">Large</option>
+                        </select>
+                    </div>
 
-                    <button class="pointer" onclick="mainqr()">Get QR</button>
+                    <div class="qr-container">
+                        <img src="scanning-qr-code.png" class="qr_main" alt="QR Code Preview">
+                    </div>
+
+                    <div class="button-container">
+                        <button class="pointer generate-btn" onclick="generateQR()">Generate QR</button>
+                        <button class="pointer download-btn" onclick="downloadQR()" disabled>Download QR</button>
+                    </div>
 
                     <div class="term_con_qr">
                         <span>Read All The</span>
-                        <span>Term's And Conditions</span>
+                        <span>Terms And Conditions</span>
                     </div>
                 </div>
             </div>
         </div>
+
+        <footer>
+            <p>Created with 💖 by @sujalPatel</p>
+        </footer>
+    </div>
+
+    <div class="main_res">
+        <div class="mobile-content">
+            <h1 class="res_txt">QR Code Generator</h1>
+
+            <div class="mobile-card">
+                <p>Enter Your Text Or URL</p>
+                <input class="mobile-input" type="text" placeholder="Text or URL">
+
+                <div class="qr-container">
+                    <img src="scanning-qr-code.png" class="mobile-qr" alt="QR Code Preview">
+                </div>
+
+                <button class="pointer" onclick="generateMobileQR()">Generate QR</button>
+                <button class="pointer download-mobile-btn" onclick="downloadMobileQR()" disabled>Download</button>
+            </div>
+
+            <p class="res_footer">Created With 💖 By @sujalPatel</p>
+        </div>
     </div>
 
     <script>
-        let qr = document.querySelector(".qr_main")
-        let sr_input = document.querySelector(".ur_input")
-        let downld = document.querySelector(".download_btn")
+        const qrImage = document.querySelector(".qr_main");
+        const mobileQrImage = document.querySelector(".mobile-qr");
+        const urlInput = document.querySelector(".ur_input");
+        const mobileInput = document.querySelector(".mobile-input");
+        const downloadBtn = document.querySelector(".download-btn");
+        const downloadMobileBtn = document.querySelector(".download-mobile-btn");
+        const sizeSelector = document.getElementById("qr-size");
 
-        function mainqr() {
-            let aabb = sr_input.value
-            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${aabb}`;
-            console.log("Hellow world")
+        // Generate QR code for desktop
+        function generateQR() {
+            const text = urlInput.value.trim();
+            if (!text) {
+                alert("Please enter some text or URL first!");
+                return;
+            }
+
+            const size = sizeSelector.value;
+            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${size}&data=${encodeURIComponent(text)}`;
+
+            qrImage.src = apiUrl;
+            qrImage.onload = () => {
+                downloadBtn.disabled = false;
+            };
+        }
+
+        // Generate QR code for mobile
+        function generateMobileQR() {
+            const text = mobileInput.value.trim();
+            if (!text) {
+                alert("Please enter some text or URL first!");
+                return;
+            }
+
+            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+
+            mobileQrImage.src = apiUrl;
+            mobileQrImage.onload = () => {
+                downloadMobileBtn.disabled = false;
+            };
+        }
+
+        // Download QR code image
+        function downloadQR() {
+            if (qrImage.src.includes("api.qrserver.com")) {
+                const link = document.createElement("a");
+                link.href = qrImage.src;
+                link.download = "qrcode.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Download QR code image (mobile)
+        function downloadMobileQR() {
+            if (mobileQrImage.src.includes("api.qrserver.com")) {
+                const link = document.createElement("a");
+                link.href = mobileQrImage.src;
+                link.download = "qrcode.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         }
     </script>
 
